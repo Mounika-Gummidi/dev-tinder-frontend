@@ -10,6 +10,7 @@ const Login = () =>{
   const [password,setPassword] = useState("Mouni@1234");
   const dispatch = useDispatch();
   const navigate= useNavigate();
+  const [err,setErr] = useState("");
 
   const handleLogin = async () =>{
     try{
@@ -21,6 +22,7 @@ const Login = () =>{
     }
     catch(err)
     {
+      setErr(err?.response?.data);
       console.error(err);
     }
   }
@@ -28,7 +30,7 @@ const Login = () =>{
     <div className="flex justify-center mt-16">
       <div className="card bg-gray-800 w-94 shadow-2xl ">
         <div className="card-body">
-          <h2 className="card-title flex justify-center text-2xl mb-3">Login Page</h2>
+          <h2 className="card-title flex justify-center text-2xl mb-3">Login</h2>
 
 
           <label className="form-control w-full max-w-xs">
@@ -49,7 +51,7 @@ const Login = () =>{
             </div>
           </label>
 
-
+          <p className="text-red-500">{err }</p>
           <div className="card-actions justify-center mt-2">
             <button className="btn btn-primary shadow-2xl" onClick={handleLogin}>Login</button>
           </div>
