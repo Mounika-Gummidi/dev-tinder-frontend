@@ -12,6 +12,7 @@ const Connections = () =>{
       const res = await axios.get(BASE_URL+"/user/connections",{withCredentials:true});
      
       dispatch(addConnections(res?.data?.data));
+      console.log("Fetched Connections:", res?.data?.data);
     }
     catch(err)
     {
@@ -23,7 +24,8 @@ const Connections = () =>{
     fetchConnections();
   },[]);
 
-  // if(connections.length===0) return <h1>No Connection Requests</h1>
+  if(!connections) return;
+  if(connections.length===0) return <h1 className="flex justify-center text-2xl py-15">No Connection Requests</h1>;
 
   return connections && (
     <div className="">
@@ -31,11 +33,12 @@ const Connections = () =>{
       {connections.map((connection) => 
       {
         const {firstName,lastName,photoUrl,age,gender,about} = connection;
+      
         return (
           <div key={connection.id} className="my-3">
             <ul className="list bg-base-200 mx-auto max-w-3xl rounded-box shadow-md">
             <li className="list-row">
-              <div><img className="size-10 rounded-box" src={photoUrl}/></div>
+              <div><img className="size-10 rounded-box" src={photoUrl || "/default-avatar.png"} alt="User Profile"/></div>
               <div>
                 <div>{firstName+" "+lastName}</div>
                 {age && gender && <div className="text-xs uppercase font-semibold opacity-60">{age+", "+gender}</div>}

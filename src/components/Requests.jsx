@@ -16,7 +16,7 @@ const Requests = () =>{
       console.log(res);
       dispatch(removeRequest(_id));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     
   }
@@ -39,8 +39,8 @@ const Requests = () =>{
   if(requests.length===0) return <h1 className="flex justify-center text-2xl">No Requests Found!!</h1>
 
   return requests && (
-    <div>
-      <h1 className="text-center text-bold text-2xl my-5 text-white">Requests</h1>
+    <div className="mb-20">
+      <h1 className="text-center text-bold text-2xl mt-5  text-white">Requests</h1>
       {requests.map((request) => 
       {
         const {_id,firstName,lastName,photoUrl,age,gender,about} = request.fromUserId;
@@ -48,7 +48,7 @@ const Requests = () =>{
           <div key={_id} className="my-3">
             <ul className="list bg-base-300 mx-auto max-w-2xl rounded-box shadow-md">
             <li className="list-row">
-              <div><img className="size-10 rounded-box" src={photoUrl}/></div>
+              <div><img className="size-12 rounded-box " src={photoUrl}/></div>
               <div>
                 <div>{firstName+" "+lastName}</div>
                 {age && gender && <div className="text-xs uppercase font-semibold opacity-60">{age+", "+gender}</div>}
